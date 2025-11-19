@@ -1,0 +1,118 @@
+/* h1{
+    color: brown;
+}
+#Add{
+    height: 200px;
+    width:400px;
+    margin-top: 10%;
+    margin-left: 20%;
+    border: 2px solid black;
+}
+.outer{
+    background-color: antiquewhite;
+    width: 400px;
+    height: 350px;
+    border: 2px solid black;
+    border-radius:16px ;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 20px;
+    
+}
+.inner_img{
+    width: 400px;
+    height: 170px;
+}
+.inner_info{
+    width: 400px;
+    height: 180px;    
+}
+    */
+img{
+    width: 400px;
+    height: 180px;
+    border-radius: 16px;
+} 
+/* Show page Css ---------------------------------------------------- */
+.show_outer{
+    /* background-color: antiquewhite; */
+    width: 500px;
+    height: 100%;
+    /* border: 2px solid black; */
+    border-radius: 16px;
+    margin-left: 20%;
+    padding-left:0px;
+}
+.show_inner{
+    width: 500px;
+    height: 350px;
+}
+#show_img{
+    padding: 0px;
+    width: 500px;
+    height: 350px;
+}
+button{
+    display:inline;
+}
+/* ------------------------------------------------------------------------------------------------------------ */
+/* Styling for Navbar */
+.navbar{
+    height: 5%;
+    background-color:beige;
+}
+
+/* Compass styling */
+.navbar_brand{
+    color: red;
+    font-size:xx-large;
+}
+.nav-link{
+    /* Important is used to override the styling you defined and apply the styling of the framework */
+    color: black !important;
+    font-weight: bolder !important;
+}
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* Footer Styling */
+.social_media{
+    margin-left: 47%;
+}
+footer{
+    background-color: blanchedalmond;
+    width: 100%;
+}
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Card Styling */
+.card{
+    margin-top: 1rem !important;
+    border: none !important;
+    margin-bottom: 2rem !important;
+    margin-left: 2rem !important;
+}
+.card:hover{
+    box-shadow: 8px 8px 16px rgb(15, 6, 24)
+}
+.card-img-top{
+    height: 15rem !important;
+}
+.text-decorate{
+    text-decoration: none !important;
+}
+.card-img-top{
+    width: 100% !important;
+}
+.add-btn{
+    color:white;
+    background-color:red;
+    border-radius: 5px;
+    border: none !important;
+
+}
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* Show page */
+.btn{
+    /* text-decoration: none !important; */
+    color:white !important;
+    border-radius: 5px !important;
+    background-color: red !important;
+}

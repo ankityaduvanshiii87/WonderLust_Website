@@ -1,0 +1,51 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="row">
+        <div class="col-5 offset-2">
+            <form action="/home/<%=hotel.id%>?_method=PATCH" method="post" novalidate class="needs-validation">
+                <br>
+                <br>
+                <h3>Update</h3>
+
+                <div class="mb-3">
+                <label for="title" class="form-label"> Title</label>
+                <textarea id="title" name="title" class="form-control"  required><%= hotel.title %></textarea>
+                <div class="invalid-feedback">
+                    Title is required!
+                </div>
+                </div>
+
+
+                <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" required><%= hotel.description %></textarea>
+                </div>
+
+                <div class="row mb-3" >
+                     <div class="col-3">
+                     <label for="price" class="form-label">Price</label>
+                     <textarea id="price" name="price" class="form-control" required><%= hotel.price %></textarea>
+                     </div>
+     
+                     <div class="col-5 offset-4">
+                     <label for="country" class="form-label" class="form-label">Country</label>
+                     <textarea id="country" name="country" class="form-control" required><%= hotel.country %></textarea>
+                     </div>
+                </div>
+                
+
+                <div class="mb-3">
+                <label for="location" class="form-label" class="form-label">Location</label>
+                <textarea id="location" name="location" class="form-control" required><%= hotel.location %></textarea>
+                </div>
+
+                <div class="mb-3">
+                <label for="img" class="form-label">Image</label>
+                <textarea id="img" name="image" class="form-control" required><%= hotel.image.url %></textarea>
+                </div>
+
+                <button type="submit" class="add-btn">Update</button>
+            </form>
+        </div>
+    </div>
+</body>

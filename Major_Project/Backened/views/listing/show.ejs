@@ -1,0 +1,81 @@
+<% layout('/layouts/boilerplate') %>
+<body style="background-color:azure;">
+    <div class="show_outer">
+        <p class="mb-1"><%= hotel.title %></p>
+        <div>
+            <div class="show_inner">
+                <img src="<%=hotel.image.url %>" alt="Image missing" id="show_img">
+            </div>
+            <div>
+                <p>Price:&#8377;<%= hotel.price.toLocaleString("en-IN") %></p>
+                <p>Description:<%= hotel.description %></p>
+                <p>Location:<%= hotel.location %></p>
+                <p>Country:<%= hotel.country %></p>
+            </div>
+
+            <div  class="row">
+                <!-- Update Button -->
+                <div class="col-2">
+                    <button  type="submit" class="btn" style="text-decoration: none;"><a href="http://localhost:3000/home/<%= hotel.id %>/update">Edit</a> </button> 
+                </div>
+                <!-- Destroy -->    
+                <div class="col-2">
+                   <form action="/home/<%= hotel.id %>?_method=DELETE" method="post">
+                       <button type="submit" class="btn">Delete</button>
+                   </form>
+                </div>  
+                 <!-- Reviews -->
+            </div>
+            <br>
+            <hr>
+            <div class="col-9 ">
+                <h4>Leave your rating</h4>
+                <form action="/listing/<%= hotel.id %>/reviews" method="POST" class="check" novalidate class="needs-validation">
+                  <div class="mb-2 row-4">
+                    <label for="rating" class="form-label col-9">Rating</label>:
+                    <input 
+                      type="range" 
+                      id="rating" 
+                      class="form-range" 
+                      min="1" 
+                      max="5" 
+                      name="review[Rating]" 
+                      >
+                  </div>
+                  <div class="mb-2">
+                    <label for="comment" class="form-label">Comment</label>:
+                    <textarea 
+                      id="comment" 
+                      class="form-control" 
+                      name="review[Comment]" 
+                      required></textarea>
+                  </div>
+                  <div class="invalid-feedback">
+                    Comment is required!
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div> 
+            <hr>
+            <div >
+                <h4>All Reviews</h4>
+                <div class="row">
+                    <%for (review of hotel.reviews) { %>
+                        <div class="card col-5">
+                            <div class="card-body">
+                                <h6 class="card-title">@user:Ankit</h6>
+                                <p class="card-text"><b>Rating</b>:<%=review.Rating%><b><span style="color: #FFD700;">&#9733;</span></b></p>
+                                <p class="card-text"><b>Comment:</b><%=review.Comment%></p>
+                                <div>
+                                    <form action="/listing/<%= hotel.id %>/reviews/<%=review.id%>?_method=DELETE" method="post">
+                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
