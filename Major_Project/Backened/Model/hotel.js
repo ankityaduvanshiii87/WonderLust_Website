@@ -3,7 +3,7 @@
 const { ref } = require("joi");
 const mongoose=require("mongoose");
 const {Schema}=mongoose;
-const reviews=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\Model\\Reviews.js");
+const reviews=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\Reviews.js");
 const wonderSchema=mongoose.Schema(
     {
         title:{

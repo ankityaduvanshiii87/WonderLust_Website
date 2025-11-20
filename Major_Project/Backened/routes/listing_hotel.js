@@ -4,12 +4,12 @@ const router=express.Router({mergeParams:true});
 const { name } = require("ejs");
 const methodOverride=require('method-override');
 const ejsMate=require("ejs-mate");
-const ExpressError=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\ExpressError.js")         // ExpressError
-const wrapAsync=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\utils\\Wrapfunc.js");         // for Wrap Function
-const validateSchema=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\Schema_Validation.js"); // For Schema Validation
+const ExpressError=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\ExpressError.js")         // ExpressError
+const wrapAsync=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\utils\\Wrapfunc.js");         // for Wrap Function
+const validateSchema=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Schema_Validation.js"); // For Schema Validation
 const { error } = require("console");
 
-const Listing=require('E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\Model\\hotel.js');
+const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
 
 const validatedSchema = (req, res, next) => {
   const { error } = validateSchema.validate(req.body);

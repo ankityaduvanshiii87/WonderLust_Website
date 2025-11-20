@@ -51,11 +51,11 @@ app.listen(port,()=>{
 // ---------------------------------------Routes-------------------------------------------------------
 
 //Listing_Routes:
-const listing_hotels=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\routes\\listing_hotel.js");
+const listing_hotels=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\routes\\listing_hotel.js");
 app.use("/home",listing_hotels);
 
 // Hotel_reviews_Routes:
-const reviews_routes=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\routes\\hotel_reviews.js");
+const reviews_routes=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\routes\\hotel_reviews.js");
 app.use("/listing",reviews_routes);
 
 // --------------------------------------Middlewares------------------------------------------------------------------

@@ -4,13 +4,13 @@ const router=express.Router();
 const { name } = require("ejs");
 const methodOverride=require('method-override');
 const ejsMate=require("ejs-mate");
-const ExpressError=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\ExpressError.js")         // ExpressError
-const wrapAsync=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\utils\\Wrapfunc.js");         // for Wrap Function
-const validateSchema=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\Schema_Validation.js"); // For Schema Validation
+const ExpressError=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\ExpressError.js")         // ExpressError
+const wrapAsync=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\utils\\Wrapfunc.js");         // for Wrap Function
+const validateSchema=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Schema_Validation.js"); // For Schema Validation
 const { error } = require("console");
 
-const Listing=require('E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\Model\\hotel.js');
-const reviews=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\Model\\Reviews.js");
+const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
+const reviews=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\Reviews.js");
 // Review Route:
 router.post("/:id/reviews" ,async(req,res)=>{  // this route is telling that we have to go to the listing collection 
                                                     //where all the hotels are saved and then to the specific hotel having some id
