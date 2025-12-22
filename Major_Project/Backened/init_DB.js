@@ -1,4 +1,4 @@
-Hotel=require("E:\\B.tech\\Delta5.0\\Major_Project\\Backened\\Model\\hotel.js")
+Hotel=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js")
 const mongoose=require("mongoose");
 
 async function main() {

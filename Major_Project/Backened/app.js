@@ -21,6 +21,9 @@ const { name } = require("ejs");
 const methodOverride=require('method-override');
 const ejsMate=require("ejs-mate");                       // ejsmate
 
+const session=require("express-session")
+const flash=require("connect-flash")
+
 // Note:I have already required all these library inside their the respectice modules(listing,reviews);
 const ExpressError=require("./ExpressError.js")         // ExpressError
 const wrapAsync=require("./utils/Wrapfunc.js");         // for Wrap Function
@@ -41,7 +44,24 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname,"/")))
 
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------
+// Express Sessions and connect-flash
+// Cookies:They store the session id and token for the given maxAge till then you need not to login and all
+//          the request you made is done by the that sesion only.They donot store the username and password.
+const sessionOption=({
+    secret:"keyboad cat",
+    resave:false,
+    saveUninitialized: true,
+    cookie:{
+        expires:Date.now()+7*24*60*60*1000,  // At time the cookie will delete from the browser.
+        maxAge:7*24*60*60*1000,             // After How much time the cookie will delete from the browser.
+        httpOnly:true                      //HttpOnly cookies cannot be accessed by JavaScript and are only sent via HTTP requests, protecting session data from XSS attacks.
+    }
+})
+app.use(session(sessionOption));
 
+app.use(flash())
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Starting  the server.
 app.listen(port,()=>{
@@ -49,7 +69,11 @@ app.listen(port,()=>{
 })
 
 // ---------------------------------------Routes-------------------------------------------------------
-
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success")
+    res.locals.fail=req.flash("fail")
+    next()
+})
 //Listing_Routes:
 const listing_hotels=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\routes\\listing_hotel.js");
 app.use("/home",listing_hotels);
@@ -61,12 +85,15 @@ app.use("/listing",reviews_routes);
 // --------------------------------------Middlewares------------------------------------------------------------------
 app.all(/.*/,(req,res,next)=>{     // It is handling that if you are requested for wrong pathwhich you have not 
                                    //  defined then it will show error.
-    let message="page Not Found!" 
-    res.render("listing/error.ejs",{message})
+    next(new ExpressError(404, "Page Not Found"));
 })
 
-app.use((error,req,res,next)=>{   // By default it is applied to all the path if any error occurred.
-    let {status=500,message="Some Error"}=error;
-    let extra='Please try again';
-    res.render("listing/error.ejs",{error,extra});
-})
+app.use((err, req, res, next) => {
+    const { status = 500, message = "Something went wrong" } = err;
+    const extra = "Please try again!";
+
+    res.status(status).render("listing/error.ejs", {
+        error: { message },
+        extra
+    });
+});

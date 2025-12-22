@@ -1,4 +1,5 @@
 const express = require("express");
+const path=require("path");
 const router=express.Router({mergeParams:true});
 
 const { name } = require("ejs");
@@ -8,6 +9,8 @@ const ExpressError=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Proj
 const wrapAsync=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\utils\\Wrapfunc.js");         // for Wrap Function
 const validateSchema=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Schema_Validation.js"); // For Schema Validation
 const { error } = require("console");
+router.use(express.urlencoded({ extended: true }));
+router.use(express.static(path.join(__dirname,"/public")));
 
 const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
 
@@ -32,9 +35,10 @@ router.get("/add",(req,res)=>{
     res.render("listing/Add.ejs");
 })
 
-router.post("listing/Apna_home",validatedSchema,wrapAsync(async(req,res)=>{
+router.post("/listing/Apna_home",validatedSchema,wrapAsync(async(req,res)=>{
     let new_Listing=new Listing(req.body.listing);
     await new_Listing.save();
+    req.flash("success","New Listing Added Successfully!")
     res.redirect("/home");
 }));
 
@@ -42,6 +46,10 @@ router.post("listing/Apna_home",validatedSchema,wrapAsync(async(req,res)=>{
 router.get("/:id/show",wrapAsync(async(req,res)=>{
     let{id}=req.params;
     const listing=await Listing.find().populate("reviews");
+    if(!listing){
+        req.flash("fail","Listing Not Found!")  // Not Working
+        res.redirect("/home")
+    }
     for(hotel of listing){
         if(id==hotel.id){
             res.render("listing/show.ejs",{hotel});
@@ -81,6 +89,7 @@ router.patch("/:id",wrapAsync(async(req,res)=>{  // Patch request is used for up
 router.delete("/:id",wrapAsync(async(req,res)=>{
     let{id}=req.params;
     await Listing.findByIdAndDelete(id);
+    req.flash("success","Listing Deleted Successfully!")
     res.redirect("/home")
 }))
 

@@ -1,0 +1,15 @@
+<!-- We have this in the boilerplate as it is for every template and we have to verifiy the
+  condition to check to print the message.
+  -->
+<%if(success && success.length){%>   <!--As the success itself include the empty array we also check for length greater than 0.-->
+    <div class="alert alert-success alert-dismissible fade show show col-6 offset-2" role="alert">
+      <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<%}%>
+<%if(fail && fail.length){%>   
+    <div class="alert alert-danger alert-dismissible fade show show col-6 offset-2" role="alert">
+      <%= fail %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<%}%>

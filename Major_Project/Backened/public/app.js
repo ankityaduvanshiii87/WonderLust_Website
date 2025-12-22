@@ -1,9 +1,14 @@
-deform=document.querySelectorAll('.delete_form');
-for(def of deform){
-    def.addEventListener('submit',()=>{
-        alert("You are deleting it ")
-    })
+const deleteForms = document.querySelectorAll("delete-form");
+
+for (const form of deleteForms) {
+    form.addEventListener('submit', (e) => {
+        const ok = alert("You are deleting this listing. Are you sure?");
+        if (!ok) {
+            e.preventDefault(); // stops delete
+        }
+    });
 }
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // form-Validation

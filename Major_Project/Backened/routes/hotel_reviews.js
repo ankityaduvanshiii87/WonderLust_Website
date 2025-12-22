@@ -23,6 +23,7 @@ router.post("/:id/reviews" ,async(req,res)=>{  // this route is telling that we 
 
     await newReview.save();
     await hotel.save();
+    req.flash("success","Review Added Successfully!")
     res.redirect(`/home/${id}/show`)
 })
 
@@ -34,6 +35,7 @@ router.delete("/:list_id/reviews/:rev_id",async(req,res)=>{ // used to delete th
     await reviews.findByIdAndDelete(rev_id);
     await Listing.findByIdAndUpdate(list_id   ,{$pull:{reviews:rev_id}}); // As we are removing the specific review is of the hotel in that case we 
                                                                           // we will pull that review and update the hotel(listing).
+    req.flash("success","Review Deleted Successfully!")
     res.redirect(`/home/${list_id}/show`);
 
 })
