@@ -1,81 +1,110 @@
 <% layout('/layouts/boilerplate') %>
-<body style="background-color:azure;">
-    <div class="show_outer">
-        <p class="mb-1"><%= hotel.title %></p>
+
+<body style="background-color:rgb(242, 247, 247);">
+    <div class=" rounded col-4 mt-5 mx-auto p-2">
+        <p class="mb-1">
+            <%= hotel.title %>
+        </p>
         <div>
             <div class="show_inner">
                 <img src="<%=hotel.image.url %>" alt="Image missing" id="show_img">
             </div>
             <div>
+                <p>Owned By:<i><%=hotel.owner.username%></i></p>
                 <p>Price:&#8377;<%= hotel.price.toLocaleString("en-IN") %></p>
                 <p>Description:<%= hotel.description %></p>
                 <p>Location:<%= hotel.location %></p>
                 <p>Country:<%= hotel.country %></p>
             </div>
-
-            <div  class="row">
+            <div class="row">
+                <!-- Here we are taking the current user and the owner of the object and authorizing if they are same else hide delete and edit.  -->
                 <!-- Update Button -->
                 <div class="col-2">
-                    <button  type="submit" class="btn" style="text-decoration: none;"><a href="http://localhost:3000/home/<%= hotel.id %>/update">Edit</a> </button> 
+                    <button type="submit" class="btn btn-primary"><a
+                            href="http://localhost:3000/home/<%= hotel.id %>/update"
+                            style="color: aliceblue;">Edit</a> </button>
                 </div>
-                <!-- Destroy -->    
+                <!-- Destroy -->
                 <div class="col-2">
-                   <form action="/home/<%= hotel.id %>?_method=DELETE" method="post" class="delete-form">
-                       <button type="submit" class="btn">Delete</button>
-                   </form>
-                </div>  
-                 <!-- Reviews -->
+                    <form action="/home/<%= hotel.id %>?_method=DELETE" method="post" class="delete-form">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
             </div>
+            <!-- Reviews -->
             <br>
             <hr>
-            <div class="col-9 ">
-                <h4>Leave your rating</h4>
-                <form action="/listing/<%= hotel.id %>/reviews" method="POST" class="check" novalidate class="needs-validation">
-                  <div class="mb-2 row-4">
-                    <label for="rating" class="form-label col-9">Rating</label>:
-                    <input 
-                      type="range" 
-                      id="rating" 
-                      class="form-range" 
-                      min="1" 
-                      max="5" 
-                      name="review[Rating]" 
-                      >
-                  </div>
-                  <div class="mb-2">
-                    <label for="comment" class="form-label">Comment</label>:
-                    <textarea 
-                      id="comment" 
-                      class="form-control" 
-                      name="review[Comment]" 
-                      required></textarea>
-                  </div>
-                  <div class="invalid-feedback">
-                    Comment is required!
-                  </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div> 
-            <hr>
-            <div >
-                <h4>All Reviews</h4>
-                <div class="row">
-                    <%for (review of hotel.reviews) { %>
-                        <div class="card col-5">
-                            <div class="card-body">
-                                <h6 class="card-title">@user:Ankit</h6>
-                                <p class="card-text"><b>Rating</b>:<%=review.Rating%><b><span style="color: #FFD700;">&#9733;</span></b></p>
-                                <p class="card-text"><b>Comment:</b><%=review.Comment%></p>
-                                <div>
-                                    <form action="/listing/<%= hotel.id %>/reviews/<%=review.id%>?_method=DELETE" method="post">
-                                        <button type="submit" class="btn btn-danger">Remove</button>
-                                    </form>
-                                </div>
-                            </div>
+            <% if(currUser){ %>
+                <div class="col-9 ">
+                    <form action="/listing/<%= hotel.id %>/reviews" method="POST" class="check" novalidate
+                        class="needs-validation">
+                        <fieldset class="starability-slot">
+                            <legend>Leave your rating:</legend>
+                            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="review[Rating]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[Rating]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[Rating]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[Rating]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[Rating]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                        <div class="mb-2">
+                            <label for="comment" class="form-label">Comment</label>:
+                            <textarea id="comment" class="form-control" name="review[Comment]" required></textarea>
                         </div>
-                    <% } %>
+                        <div class="invalid-feedback">
+                            Comment is required!
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
-            </div>
+                <% } %>
+                    <hr>
+                    <div>
+                        <h4>All Reviews</h4>
+                        <div class="row">
+                            <%for (review of hotel.reviews) { %>
+                                <div class="card ">
+                                    <div class="card-body col-9">
+                                        <h6 class="card-title">@user:<%=review.author.username %></h6>
+
+                                        <!-- Displayed the rating in the form of rating -->
+                                        <p class="starability-result" data-rating="<%=review.Rating%>">Rated: 3 stars</p>
+
+                                        <!--Display the user Comment  -->
+                                        <p class="card-text"><b>Comment:</b>
+                                            <%=review.Comment%>
+                                        </p>
+                                        <div>
+                                            <!-- Form to delete the reviews -->
+                                            <form
+                                                action="/listing/<%= hotel.id %>/reviews/<%=review.id%>?_method=DELETE"
+                                                method="post">
+                                                <button type="submit" class="btn btn-danger">Remove</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                    </div>
+        </div>
+    
+        <div>
+            <h3>Where you will be</h3>
+            <div id="map"></div>
         </div>
     </div>
+        <script>
+        mapboxgl.accessToken = 'pk.eyJlIjoiZGVsdGEtc3R1ZHVlbnQ 6532516:102iLCJhIjoiY2xvMDk0MTVMTJ3ZDJrcGR5ZDFkaHl4ci 39.Gj2VU1wvxc7rFVt5E4KL00';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            center: [-74.5, 40], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            zoom: 9 // starting zoom
+        });
+    </script>
 </body>

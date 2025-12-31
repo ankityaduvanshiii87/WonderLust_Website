@@ -1,17 +1,7 @@
 Hotel=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js")
 const mongoose=require("mongoose");
 
-async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/WonderLust')
-}
-main()
-.then((res,err)=>{
-    if(err) throw err;
-    console.log("Database Connected Successfully....")
-})
-.catch((err)=>{
-    console.log(err);
-})
+
 
 const sampleListings = [
   {
@@ -364,4 +354,26 @@ const sampleListings = [
   },
 ];
 
-Hotel.insertMany(sampleListings)
+async function main() {
+  await mongoose.connect("mongodb://127.0.0.1:27017/WonderLust");
+  console.log("Database Connected Successfully....");
+
+  // OPTIONAL: Clear old data
+  // await Hotel.deleteMany({});
+
+  const listingsWithOwner = sampleListings.map(listing => ({
+    ...listing,
+    owner: new mongoose.Types.ObjectId("6951c8c96dcb55de4c9912a2")
+  }));
+
+  await Hotel.insertMany(listingsWithOwner);
+  console.log("Data seeded successfully");
+
+  mongoose.connection.close();
+}
+
+// ✅ THIS WAS MISSING
+main().catch(err => {
+  console.error(err);
+  mongoose.connection.close();
+});

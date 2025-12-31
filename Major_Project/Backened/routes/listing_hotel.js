@@ -9,88 +9,45 @@ const ExpressError=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Proj
 const wrapAsync=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\utils\\Wrapfunc.js");         // for Wrap Function
 const validateSchema=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Schema_Validation.js"); // For Schema Validation
 const { error } = require("console");
+const {isLoggedIn,validatedSchema,isOwner}=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\middleware.js")
 router.use(express.urlencoded({ extended: true }));
 router.use(express.static(path.join(__dirname,"/public")));
+const multer=require("multer"); // Used to parse the file data from the form.
+
+// Requireing the CLoudinary configuration and storage.
+const {storage}=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\cloudConfig.js")
+const upload=multer({storage})  // create the uploads folder and store the files.
+
 
 const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
+const listing_controller=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Controller\\listing_hotels.js")
 
-const validatedSchema = (req, res, next) => {
-  const { error } = validateSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map(el => el.message).join(",");
-    throw new ExpressError(400, msg);   // throws if not string
-  } else {
-    next();
-  }
-};
+
+
 
 // home Page
-router.get("/", wrapAsync(async (req, res) => {
-  const listing = await Listing.find({});
-  res.render("listing/Apna_home.ejs", { listing });
-}));
+router.get("/", wrapAsync(listing_controller.home));
 
 // Add Button  
-router.get("/add",(req,res)=>{
-    res.render("listing/Add.ejs");
-})
+router.get("/add",isLoggedIn,listing_controller.add_get_form); // Getting the Add form
 
-router.post("/listing/Apna_home",validatedSchema,wrapAsync(async(req,res)=>{
-    let new_Listing=new Listing(req.body.listing);
-    await new_Listing.save();
-    req.flash("success","New Listing Added Successfully!")
-    res.redirect("/home");
-}));
+router.post(   // Storing the data in the database
+  "/listing/Apna_home",
+  isLoggedIn,
+  upload.single("listing[image]"), // ✅ MULTER HERE
+  wrapAsync(listing_controller.add_post),
+);
 
 // Show Route
-router.get("/:id/show",wrapAsync(async(req,res)=>{
-    let{id}=req.params;
-    const listing=await Listing.find().populate("reviews");
-    if(!listing){
-        req.flash("fail","Listing Not Found!")  // Not Working
-        res.redirect("/home")
-    }
-    for(hotel of listing){
-        if(id==hotel.id){
-            res.render("listing/show.ejs",{hotel});
-        }
-    }
-}))
+router.get("/:id/show" ,isLoggedIn,wrapAsync(listing_controller.show));
 
 //Edit route
-router.get("/:id/update",wrapAsync(async(req,res)=>{
-    let{id}=req.params;
-    const listing=await Listing.find();
-    for(hotel of listing){
-        if(id==hotel.id){
-            res.render("listing/update.ejs",{hotel});
-        }
-    }
-}))
+router.get("/:id/update",isOwner,isLoggedIn,wrapAsync(listing_controller.edit_get_form));
 
 
-router.patch("/:id",wrapAsync(async(req,res)=>{  // Patch request is used for updation .
-    let{id}=req.params;
-    let {price,description,location,country,title,image}=req.body;
-
-    await Listing.findByIdAndUpdate(id,
-        {price:price,
-        description:description,
-        location:location,
-        country:country,
-        title:title,
-        image: { url: image }
-        }
-    )
-    res.redirect(`/home/${id}/show`);
-}));
-
-// destroy Path
-router.delete("/:id",wrapAsync(async(req,res)=>{
-    let{id}=req.params;
-    await Listing.findByIdAndDelete(id);
-    req.flash("success","Listing Deleted Successfully!")
-    res.redirect("/home")
-}))
+router
+    .route("/:id")
+    .patch(isLoggedIn,isOwner,upload.single("listing[image]"),wrapAsync(listing_controller.edit_post))  // edit path 
+    .delete(isOwner,isLoggedIn,wrapAsync(listing_controller.delete));// destroy Path
 
 module.exports=router

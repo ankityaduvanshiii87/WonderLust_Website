@@ -4,6 +4,8 @@ const { ref } = require("joi");
 const mongoose=require("mongoose");
 const {Schema}=mongoose;
 const reviews=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\Reviews.js");
+const User=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\user.js");
+const { type } = require("../Schema_Validation");
 const wonderSchema=mongoose.Schema(
     {
         title:{
@@ -15,11 +17,9 @@ const wonderSchema=mongoose.Schema(
             required:true
         },
         image: {
-        url: {
-          type: String,
-          set: (url) => url && url.trim() !== " " ? url : 'https://images.unsplash.com/photo-1578645510447-e20b4311e3ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60'
-        }
-},
+            url:String,
+            filename:String
+        },
         price:{
             type:Number,
             required:true
@@ -35,7 +35,11 @@ const wonderSchema=mongoose.Schema(
         reviews:[{                 // defined the array so the reviews of the particular hotel is stored in the same.
             type:Schema.Types.ObjectId,
             ref:"review"
-        }]
+        }],
+        owner:{
+            type:Schema.Types.ObjectId,
+            ref:"User"
+        }
     }
 )
 

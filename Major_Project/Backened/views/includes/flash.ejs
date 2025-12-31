@@ -2,14 +2,14 @@
   condition to check to print the message.
   -->
 <%if(success && success.length){%>   <!--As the success itself include the empty array we also check for length greater than 0.-->
-    <div class="alert alert-success alert-dismissible fade show show col-6 offset-2" role="alert">
+    <div class="alert alert-success alert-dismissible fade show show col-4 offset-4" role="alert">
       <%= success %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <%}%>
-<%if(fail && fail.length){%>   
-    <div class="alert alert-danger alert-dismissible fade show show col-6 offset-2" role="alert">
-      <%= fail %>
+<%if(error && error.length){%>   
+    <div class="alert alert-danger alert-dismissible fade show show col-4  offset-4" role="alert">
+      <%= error %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <%}%>

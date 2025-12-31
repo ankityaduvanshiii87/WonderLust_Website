@@ -28,91 +28,110 @@
     height: 180px;    
 }
     */
-img{
+img {
     width: 400px;
     height: 180px;
     border-radius: 16px;
-} 
+}
+
 /* Show page Css ---------------------------------------------------- */
-.show_outer{
+.show_outer {
     /* background-color: antiquewhite; */
     width: 500px;
     height: 100%;
     /* border: 2px solid black; */
     border-radius: 16px;
     margin-left: 20%;
-    padding-left:0px;
+    padding-left: 0px;
 }
-.show_inner{
+
+.show_inner {
     width: 500px;
     height: 350px;
 }
-#show_img{
+
+#show_img {
     padding: 0px;
-    width: 500px;
+    width: 450px;
     height: 350px;
 }
-button{
-    display:inline;
+
+button {
+    display: inline;
 }
+
 /* ------------------------------------------------------------------------------------------------------------ */
 /* Styling for Navbar */
-.navbar{
+.navbar {
     height: 5%;
-    background-color:beige;
+    background-color: beige;
 }
 
 /* Compass styling */
-.navbar_brand{
+.navbar_brand {
     color: red;
-    font-size:xx-large;
+    font-size: xx-large;
 }
-.nav-link{
+
+.nav-link {
     /* Important is used to override the styling you defined and apply the styling of the framework */
     color: black !important;
-    font-weight: bolder !important;
+    /* font-weight: bo !important; */
 }
+
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Footer Styling */
-.social_media{
+.social_media {
     margin-left: 47%;
 }
-footer{
+
+footer {
     background-color: blanchedalmond;
     width: 100%;
 }
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Card Styling */
-.card{
+.card {
     margin-top: 1rem !important;
     border: none !important;
     margin-bottom: 2rem !important;
     margin-left: 2rem !important;
 }
-.card:hover{
+
+.card:hover {
     box-shadow: 8px 8px 16px rgb(15, 6, 24)
 }
-.card-img-top{
+
+.card-img-top {
     height: 15rem !important;
 }
-.text-decorate{
+
+.text-decorate {
     text-decoration: none !important;
 }
-.card-img-top{
+
+.card-img-top {
     width: 100% !important;
 }
-.add-btn{
-    color:white;
-    background-color:red;
+
+.add-btn {
+    background-color: red;
     border-radius: 5px;
     border: none !important;
 
 }
+
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Show page */
-.btn{
-    /* text-decoration: none !important; */
-    color:white !important;
-    border-radius: 5px !important;
-    background-color: red !important;
+
+/* --------------------------------------------------------------------------------------------------------------------------------- */
+/* SignUp Page CSS */
+/* .signup{
+    border: 2px solid black;
+} */
+
+#map {
+    height: 100px;
+    width:100px
 }

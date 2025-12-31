@@ -2,49 +2,56 @@
 <body>
     <div class="row">
         <div class="col-5 offset-2">
-            <form action="/home/<%=hotel.id%>?_method=PATCH" method="post" novalidate class="needs-validation">
+            <form action="/home/<%=hotel.id%>?_method=PATCH" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
                 <br>
                 <br>
                 <h3>Update</h3>
 
+                <!-- Title -->
                 <div class="mb-3">
                 <label for="title" class="form-label"> Title</label>
-                <textarea id="title" name="title" class="form-control"  required><%= hotel.title %></textarea>
+                <input id="title" name="listing[title]" class="form-control" value="<%= hotel.title %>"  required>
                 <div class="invalid-feedback">
                     Title is required!
                 </div>
                 </div>
 
-
+                <!-- Description -->
                 <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea id="description" name="description" class="form-control" required><%= hotel.description %></textarea>
+                <textarea id="description" name="listing[description]" class="form-control" required><%= hotel.description %></textarea>
                 </div>
 
+                <!-- Price and Country -->
                 <div class="row mb-3" >
                      <div class="col-3">
                      <label for="price" class="form-label">Price</label>
-                     <textarea id="price" name="price" class="form-control" required><%= hotel.price %></textarea>
+                     <input id="price" name="listing[price]" class="form-control" value="<%= hotel.price %>" required>
                      </div>
      
                      <div class="col-5 offset-4">
                      <label for="country" class="form-label" class="form-label">Country</label>
-                     <textarea id="country" name="country" class="form-control" required><%= hotel.country %></textarea>
+                     <input id="country" name="listing[country]" class="form-control" value="<%= hotel.country %>" required>
                      </div>
                 </div>
                 
-
+                <!-- Location -->
                 <div class="mb-3">
                 <label for="location" class="form-label" class="form-label">Location</label>
-                <textarea id="location" name="location" class="form-control" required><%= hotel.location %></textarea>
+                <input id="location" name="listing[location]" class="form-control" value="<%= hotel.location %>" required>
                 </div>
 
+                <!-- Show Previous Image -->
+                 <div>
+                    <img src="<%= original_image %>" alt="Missing">
+                 </div>
+                <!-- Upload new Image -->
                 <div class="mb-3">
-                <label for="img" class="form-label">Image</label>
-                <textarea id="img" name="image" class="form-control" required><%= hotel.image.url %></textarea>
+                <label for="img" class="form-label">Upload New Image</label>
+                <input type="file" id="img" name="listing[image]" class="form-control" value="<%= hotel.image %>">
                 </div>
 
-                <button type="submit" class="add-btn">Update</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>
