@@ -10,26 +10,35 @@
       <ul class="navbar-nav w-100">
 
         <li class="nav-item">
-          <a class="nav-link" href="/home">Home</a>
+          <a class="nav-link" href="/home">Explore</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/home/add">Add New</a>
-        </li>
+        <!-- Search Bar -->
+        <form class="d-flex searchBtn" role="search">
+          <input class="form-control me-2" type="search" placeholder=" Destination" aria-label="Search"/>
+          <button class="btn btn-outline-success  " type="submit">Search</button>
+        </form>
+
+        <!-- Navbar right components if user isLoggedIn -->
         <% if (currUser) { %>
           <li class="nav-item ms-auto">
+             <a class="nav-link" href="/home/add">Add New</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/home/Logout">Hi! <%= currUser.username %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-danger" href="/home/Logout">Logout</a>
+            <a class="nav-link text-danger" href="/home/Logout"><b>Logout</b></a>
           </li>
           <% } %>
+
+          <!-- Navbar right components if user is not LoggedIn -->
           <%if (!currUser){ %>
             <li class="nav-item ms-auto">
-              <a class="nav-link" href="/home/Login">Login</a>
+              <a class="nav-link text-primary  " href="/home/Login"><b>Log in</b></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/home/SignUp">Sign Up</a>
+              <a class="nav-link text-primary" href="/home/SignUp"><b>Sign Up</b></a>
             </li>
             <% } %>
       </ul>

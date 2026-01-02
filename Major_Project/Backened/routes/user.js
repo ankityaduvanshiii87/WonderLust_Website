@@ -24,11 +24,13 @@ router
      .route("/Login")
      .get(User_controller.existing_user_getform) // login get form
      .post(
-    saveRedirectUrl,   // calling the local so that the url should not get deleted after the authenticate function is called.
-    passport.authenticate(
-        "local",
-        {failureRedirect:"/home/Login",failureFlash:true}),
-        User_controller.User_Authentication);
+            saveRedirectUrl,   // calling the local so that the url should not get deleted after the authenticate function is called.
+            passport.authenticate(
+                "local",
+                {failureRedirect:"/home/Login",failureFlash:true}
+            ),
+                User_controller.User_Authentication
+            );
 
 // Logout user:
 router.get("/Logout",isLoggedIn,User_controller.User_Logout);

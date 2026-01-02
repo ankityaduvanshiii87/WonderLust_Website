@@ -1,4 +1,5 @@
 const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
+const { geocode } = require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Services\\geocoding.js");
 
 // home Route
 module.exports.home=(async (req, res) => {
@@ -6,7 +7,7 @@ module.exports.home=(async (req, res) => {
   res.render("listing/Apna_home.ejs", { listing });
 })
 
-// add route Functionality:
+// add  form get Functionality:
 module.exports.add_get_form=(req,res)=>{
     res.render("listing/Add.ejs");
 }
@@ -14,8 +15,21 @@ module.exports.add_get_form=(req,res)=>{
 // Add_post functioanlity:
 module.exports.add_post=(async(req,res)=>{
     let new_Listing=new Listing(req.body.listing);
+
+    // Adding the geocoding to get the location of the place on map.
+    const coords = await geocode(req.body.listing.location);
+    if (!coords) {
+      req.flash("error", "Invalid location");
+      return res.redirect("/home/add");
+    }
+    // Saving the cordinates
+    new_Listing.geometry = {
+      type: "Point",
+      coordinates: [coords.lng, coords.lat]
+    };
+
     new_Listing.owner=req.user._id;  // Adding the new Listing with the owner who have created it.by using the owner id from the req.users(passport).
-    if (req.file) {     // Updating the image url and path in the database.
+    if (req.file) {     // Updating the image url and path in the database.(Asreq.file have all the info of the uploaded file)
         new_Listing.image = {
             url: req.file.path,
             filename: req.file.filename
@@ -25,6 +39,13 @@ module.exports.add_post=(async(req,res)=>{
     req.flash("success","New Listing Added Successfully!")
     res.redirect("/home");
 })
+
+
+module.exports.createListing = async (req, res) => {
+
+
+  // save coords to DB
+};
 
 // Show Route Functionality:
 module.exports.show=(async(req,res)=>{
@@ -42,7 +63,7 @@ module.exports.show=(async(req,res)=>{
     }
 })
 
-// Edit form route Functionality:
+// Edit form get  route Functionality:
 module.exports.edit_get_form=(async(req,res)=>{
     let{id}=req.params;
     const listing=await Listing.find();

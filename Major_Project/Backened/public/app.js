@@ -25,3 +25,18 @@ for (const form of deleteForms) {
     }, false);
   });
 })();
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// Toggle Button on the home page.
+let toggle = document.querySelector("#switchCheckDefault");
+    toggle.addEventListener("click", () => {
+        let gstPrices = document.querySelectorAll(".gstPrice");
+        gstPrices.forEach(gst => {
+            if(gst.style.display !="inline"){
+                gst.style.display="inline"
+            }
+            else{
+                gst.style.display="none"
+            }
+        });
+    });
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------

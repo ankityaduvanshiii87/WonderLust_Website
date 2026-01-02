@@ -6,21 +6,6 @@
 */
 const mongoose = require("mongoose")
 const { default: passportLocalMongoose } = require("passport-local-mongoose")
-const {Schema}=mongoose.Schema
-const passportlocalSchema=require("passport-local-mongoose")
-const { type } = require("../Schema_Validation")
-
-async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/WonderLust")
-}
-
-main()
-    .then((res, err) => {
-        if (err) throw err;
-    }).catch((err) => {
-        console.log(err);
-    })
-
 const userSchema = mongoose.Schema({
     FristName:{
         type: String,

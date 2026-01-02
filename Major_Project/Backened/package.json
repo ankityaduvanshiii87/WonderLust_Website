@@ -1,4 +1,7 @@
 {
+  "engine":{
+    "node":"22.18.0"
+  },
   "name": "backened",
   "version": "1.0.0",
   "description": "Major Project",
@@ -12,6 +15,7 @@
     "bootstrap": "^5.3.8",
     "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
@@ -19,11 +23,13 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "joi": "^18.0.1",
+    "mapbox-gl": "^3.17.0",
     "method-override": "^3.0.0",
     "mongoose": "^8.18.1",
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^3.14.5",
+    "node-fetch": "^2.7.0",
     "nodemon": "^3.1.10",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",

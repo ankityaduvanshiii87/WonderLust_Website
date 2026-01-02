@@ -2,9 +2,10 @@ if(process.env.NODE_ENV !="production"){
     require('dotenv').config()
 }
 
+const db_url=process.env.mongodb_Altlas_connect;
 const mongoose=require("mongoose");
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/WonderLust");;
+    await mongoose.connect(db_url);;
 }
 main()
 .then((res,err)=>{
@@ -59,8 +60,19 @@ app.use(express.static(path.join(__dirname,"/")))
 // Express Sessions and connect-flash
 // Cookies:They store the session id and token for the given maxAge till then you need not to login and all
 //          the request you made is done by the that sesion only.They donot store the username and password.
-const sessionOption=({
-    secret:"keyboad cat",
+
+const {MongoStore} = require('connect-mongo');  // This the formate for importing MongoStore.
+const store = MongoStore.create({    // Creating the session store on the server of mongdb
+  mongoUrl:db_url,
+  crypto:{
+    secret:process.env.SECRET_MonogoDB
+  },
+  touchAfter:24*3600
+})
+
+const sessionOption=({  
+    store,
+    secret:process.env.SECRET_MonogoDB,
     resave:false,
     saveUninitialized: true,
     cookie:{

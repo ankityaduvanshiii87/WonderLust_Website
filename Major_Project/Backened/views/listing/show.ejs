@@ -10,11 +10,17 @@
                 <img src="<%=hotel.image.url %>" alt="Image missing" id="show_img">
             </div>
             <div>
-                <p>Owned By:<i><%=hotel.owner.username%></i></p>
-                <p>Price:&#8377;<%= hotel.price.toLocaleString("en-IN") %></p>
-                <p>Description:<%= hotel.description %></p>
-                <p>Location:<%= hotel.location %></p>
-                <p>Country:<%= hotel.country %></p>
+                <p>Owned By:<i>
+                        <%=hotel.owner.username%>
+                    </i></p>
+                <p>Price:&#8377;<%= hotel.price.toLocaleString("en-IN") %>
+                </p>
+                <p>Description:<%= hotel.description %>
+                </p>
+                <p>Location:<%= hotel.location %>
+                </p>
+                <p>Country:<%= hotel.country %>
+                </p>
             </div>
             <div class="row">
                 <!-- Here we are taking the current user and the owner of the object and authorizing if they are same else hide delete and edit.  -->
@@ -33,14 +39,15 @@
             </div>
             <!-- Reviews -->
             <br>
-            <hr>
             <% if(currUser){ %>
+                <hr>
                 <div class="col-9 ">
                     <form action="/listing/<%= hotel.id %>/reviews" method="POST" class="check" novalidate
                         class="needs-validation">
                         <fieldset class="starability-slot">
                             <legend>Leave your rating:</legend>
-                            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
+                                aria-label="No rating." />
                             <input type="radio" id="first-rate1" name="review[Rating]" value="1" />
                             <label for="first-rate1" title="Terrible">1 star</label>
                             <input type="radio" id="first-rate2" name="review[Rating]" value="2" />
@@ -64,17 +71,18 @@
                 </div>
                 <% } %>
                     <hr>
+                    <% if(hotel.reviews){ %>
                     <div>
                         <h4>All Reviews</h4>
                         <div class="row">
                             <%for (review of hotel.reviews) { %>
                                 <div class="card ">
                                     <div class="card-body col-9">
-                                        <h6 class="card-title">@user:<%=review.author.username %></h6>
-
+                                        <h6 class="card-title">@user:<%=review.author.username %>
+                                        </h6>
                                         <!-- Displayed the rating in the form of rating -->
-                                        <p class="starability-result" data-rating="<%=review.Rating%>">Rated: 3 stars</p>
-
+                                        <p class="starability-result" data-rating="<%=review.Rating%>">Rated: 3
+                                            stars</p>
                                         <!--Display the user Comment  -->
                                         <p class="card-text"><b>Comment:</b>
                                             <%=review.Comment%>
@@ -92,19 +100,25 @@
                                 <% } %>
                         </div>
                     </div>
+                    <% } %>
         </div>
-    
-        <div>
+        <div c>
             <h3>Where you will be</h3>
-            <div id="map"></div>
+             <div id="map"></div>
         </div>
     </div>
-        <script>
-        mapboxgl.accessToken = 'pk.eyJlIjoiZGVsdGEtc3R1ZHVlbnQ 6532516:102iLCJhIjoiY2xvMDk0MTVMTJ3ZDJrcGR5ZDFkaHl4ci 39.Gj2VU1wvxc7rFVt5E4KL00';
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            center: [-74.5, 40], // starting position [lng, lat]. Note that lat must be set between -90 and 90
-            zoom: 9 // starting zoom
-        });
-    </script>
 </body>
+<script>
+  const [lng, lat] = <%- JSON.stringify(hotel.geometry.coordinates) %>;
+
+  const map = L.map('map').setView([lat, lng], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup("<%= hotel.title %>, <%=hotel.location%>")
+    .openPopup();
+</script>
