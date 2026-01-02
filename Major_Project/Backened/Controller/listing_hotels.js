@@ -1,5 +1,5 @@
-const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
-const { geocode } = require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Services\\geocoding.js");
+const Listing=require('../Model/hotel.js');
+const { geocode } = require("../Services/geocoding.js");
 
 // home Route
 module.exports.home=(async (req, res) => {

@@ -1,7 +1,7 @@
 const { authenticate } = require("passport");
-const Listing = require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js");
-const reviews=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\Reviews.js");
-const validateSchema=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Schema_Validation.js");
+const Listing = require("./Model/hotel.js");
+const reviews=require("./Model/Reviews.js");
+const validateSchema=require("./Schema_Validation.js");
 
 module.exports.isLoggedIn=(req,res,next)=>{
     if(!req.isAuthenticated()){  // It is the method  to authenicate the user 

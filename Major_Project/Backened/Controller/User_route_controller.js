@@ -1,8 +1,8 @@
-const User=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\user.js");
+const User = require("../Model/user.js");
 const passport = require("passport");
 // # get SignUp form Functionality:
 module.exports.add_newUser_getForm=async(req,res)=>{
-    res.render("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\views\\User\\SignUp.ejs")
+     res.render("User/SignUp");
 }
 
 // # post(add the User to DataBase) SignUp form Functionality:
@@ -33,7 +33,7 @@ module.exports.add_newUser_post=async(req,res)=>{
 
 // # get Login form Functionality:
 module.exports.existing_user_getform=async(req,res)=>{
-    res.render("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\views\\User\\Login.ejs")
+        res.render("User/Login");
 }
 
 // # User Authentication Functionality

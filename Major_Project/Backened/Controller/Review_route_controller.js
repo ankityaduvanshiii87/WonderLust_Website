@@ -1,5 +1,5 @@
-const reviews=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\Reviews.js");
-const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
+const reviews=require("../Model/Reviews.js");
+const Listing=require('../Model/hotel.js');
 // Add Review Functionality
 module.exports.review_add=async(req,res)=>{  // this route is telling that we have to go to the listing collection 
                                                     //where all the hotels are saved and then to the specific hotel having some id

@@ -28,7 +28,7 @@ const ejsMate=require("ejs-mate");                       // ejsmate
 // For Local Password Authentication.
 const passport=require("passport");
 const LocalStrtegy=require("passport-local");
-const User=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\user.js")
+const User=require("./Model/user.js")
 
 
 // For Session
@@ -103,15 +103,15 @@ app.use((req,res,next)=>{
 // ---------------------------------------Routes-------------------------------------------------------
 
 //Listing_Routes:
-const listing_hotels=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\routes\\listing_hotel.js");
+const listing_hotels=require("./routes/listing_hotel");
 app.use("/home",listing_hotels);
 
 // Hotel_reviews_Routes:
-const reviews_routes=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\routes\\hotel_reviews.js");
+const reviews_routes=require("./routes/hotel_reviews");
 app.use("/listing",reviews_routes);
 
 // User_Routes:
-const User_Routes=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\routes\\user.js");
+const User_Routes=require("./routes/user");
 app.use("/home",User_Routes)
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

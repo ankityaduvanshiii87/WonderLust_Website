@@ -5,22 +5,22 @@ const router=express.Router({mergeParams:true});
 const { name } = require("ejs");
 const methodOverride=require('method-override');
 const ejsMate=require("ejs-mate");
-const ExpressError=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\ExpressError.js")         // ExpressError
-const wrapAsync=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\utils\\Wrapfunc.js");         // for Wrap Function
-const validateSchema=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Schema_Validation.js"); // For Schema Validation
+const ExpressError=require("../ExpressError.js")         // ExpressError
+const wrapAsync=require("../utils/Wrapfunc.js");         // for Wrap Function
+const validateSchema=require("../Schema_Validation.js"); // For Schema Validation
 const { error } = require("console");
-const {isLoggedIn,validatedSchema,isOwner}=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\middleware.js")
+const {isLoggedIn,validatedSchema,isOwner}=require("../middleware.js")
 router.use(express.urlencoded({ extended: true }));
 router.use(express.static(path.join(__dirname,"/public")));
 const multer=require("multer"); // Used to parse the file data from the form.
 
 // Requireing the CLoudinary configuration and storage.
-const {storage}=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\cloudConfig.js")
+const {storage}=require("../cloudConfig")
 const upload=multer({storage})  // create the uploads folder and store the files.
 
 
-const Listing=require('E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Model\\hotel.js');
-const listing_controller=require("E:\\B.tech\\Delta5.0\\WonderLust_Website\\Major_Project\\Backened\\Controller\\listing_hotels.js")
+const Listing=require("../Model/hotel");
+const listing_controller = require("../Controller/listing_hotels");
 
 
 
