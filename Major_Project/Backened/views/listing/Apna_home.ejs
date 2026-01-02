@@ -87,7 +87,7 @@
     <div class="row" >
         <% for(hotel of listing){ %>
             <div class="card" style="width: 18rem;">
-                <a href="http://localhost:3000/home/<%=hotel.id%>/show" class="text-decorate">
+                <a href="/home/<%=hotel.id%>/show" class="text-decorate">
                  <img src=<%=hotel.image.url %> class="card-img-top" alt="missing Image">
                  <div class="card-body ">
                      <h6 class="card-title " ><%=hotel.title %></h6>
